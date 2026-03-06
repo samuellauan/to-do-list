@@ -1,8 +1,9 @@
 Vou criar o CRUD para os cards de tarefas
 a lógica é:
+
     -adicionar um novo card com o símbolo de adicionar(+)
 
-    -quando clicar no card, abrir um modal para editar a tarefa, ver detalhes, 
+    -quando clicar no card, abrir um modal para     editar a tarefa, ver detalhes, 
      prioridades, futuramente arquivos anexados, data de entrega, opção para exluir 
      e marcar como concluída(indo automaticamente para a coluna de concluídas)
 

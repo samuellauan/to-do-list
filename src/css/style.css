@@ -141,6 +141,14 @@ body {
     box-shadow: var(--shadow-card-hover);
 }
 
+.place {
+    border: none;
+    background: transparent;
+    color: var(--cor-texto);
+    font-size: 1.17rem;
+    font-weight: bold;
+}
+
 .dragging {
     opacity: 0;
 }

@@ -9,7 +9,7 @@ document.querySelectorAll('.card').forEach(card => {
         e.currentTarget.classList.remove('dragging');
     })
 })
-
+        
 // Drag and Drop Columns
 document.querySelectorAll('.cards').forEach(column => {
     column.addEventListener('dragover', e => {
