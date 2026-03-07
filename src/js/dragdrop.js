@@ -16,7 +16,6 @@ document.querySelectorAll('.cards').forEach(column => {
     e.preventDefault();
     e.currentTarget.classList.add('cards-hover');
     const dragging = document.querySelector('.dragging');
-    const cards = [...column.querySelectorAll('.card:not(.dragging)')];
 
     const afterElement = getDragAfterElement(column, e.clientY);
 

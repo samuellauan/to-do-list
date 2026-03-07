@@ -3,13 +3,13 @@ a lógica é:
 
     -adicionar um novo card com o símbolo de adicionar(+)
 
-    -quando clicar no card, abrir um modal para     editar a tarefa, ver detalhes, 
-     prioridades, futuramente arquivos anexados, data de entrega, opção para exluir 
-     e marcar como concluída(indo automaticamente para a coluna de concluídas)
+    -quando clicar no card, abrir um modal para editar a tarefa, ver detalhes, 
+    prioridades, futuramente arquivos anexados, data de entrega, opção para exluir 
+    e marcar como concluída(indo automaticamente para a coluna de concluídas)
 
     -dentro do modal deve conter título com o nome da tarefa, 
-     logo abaixo prioridade e data de entrega um ao lado do outro,
-     no meio a descrição da tarefa   
+    logo abaixo prioridade e data de entrega um ao lado do outro,
+    no meio a descrição da tarefa   
 
 PALETAS:
 

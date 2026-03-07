@@ -134,6 +134,9 @@ body {
     backdrop-filter: blur(4px);
     display: flex;
     flex-direction: column;
+    font-size: 1.17rem;
+    font-weight: bold;
+   
 }
 
 .card:hover {
@@ -141,11 +144,14 @@ body {
     box-shadow: var(--shadow-card-hover);
 }
 
-.place {
-    border: none;
-    background: transparent;
+.input-card {
+    background: var(--cor-card);
+    border: 1px solid var(--border-card);
+    padding: 10px;
+    margin: 4px 6px;
+    border-radius: 8px;
     color: var(--cor-texto);
-    font-size: 1.17rem;
+    font-size: 1.10rem;
     font-weight: bold;
 }
 
