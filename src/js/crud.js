@@ -1,5 +1,7 @@
 // CRUD
+import { salvarTasks, carregarTasks } from './storage.js';
 
+let tasks = carregarTasks();
 
 export function create() {
     let listaAfazer = [];
@@ -29,6 +31,18 @@ export function create() {
                     return;
                 }
 
+                const status = coluna.dataset.status;
+
+                const task = {
+                    id: Date.now(),
+                    titulo: valor,
+                    status: status
+                };
+
+                tasks.push(task);
+
+                salvarTasks(tasks);
+                
                 const card = document.createElement('div');
                 card.classList.add('card');
                 card.textContent = valor ;
@@ -42,7 +56,6 @@ export function create() {
                     e.currentTarget.classList.remove('dragging');
                 });
                 
-
                 listaCards.replaceChild(card, input);
             }
 
@@ -54,3 +67,33 @@ export function create() {
 
 }
 
+export function renderTasks(tasks) {
+
+    tasks.forEach(task => {
+
+        const coluna = document.querySelector(
+            `.column[data-status="${task.status}"]`
+        );
+
+        const listaCards = coluna.querySelector('.cards');
+
+        const card = document.createElement('div');
+        card.classList.add('card');
+        card.textContent = task.titulo;
+        card.draggable = true;
+
+        card.dataset.id = task.id;
+
+        card.addEventListener('dragstart', e => {
+            e.currentTarget.classList.add('dragging');
+        });
+
+        card.addEventListener('dragend', e => {
+            e.currentTarget.classList.remove('dragging');
+        });
+
+        listaCards.appendChild(card);
+
+    });
+
+}
