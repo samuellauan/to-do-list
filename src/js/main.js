@@ -9,8 +9,8 @@ const tasks = carregarTasks();
 function initApp() {
    toggleMode()
    initDragAndDrop()
-   create()
    renderTasks(tasks)
+   create()
 }
 
 document.addEventListener("DOMContentLoaded", () => {

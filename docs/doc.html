@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NovaTask OS | Full Technical Specification</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=JetBrains+Mono&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0F0C1D; --card: #1A162F; --sidebar: #131026;
+            --accent: #A29BFE; --text: #E0E0FF; --text-dim: #94A3B8;
+            --border: rgba(162, 155, 254, 0.15); --code: #000;
+            --urgent: #FF79C6; --success: #50FA7B;
+        }
+
+        * { box-sizing: border-box; scroll-behavior: smooth; }
+        body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; margin: 0; display: flex; }
+
+        /* Sidebar Navigation */
+        .sidebar {
+            width: 300px; height: 100vh; background: var(--sidebar);
+            border-right: 1px solid var(--border); position: fixed;
+            padding: 2rem; overflow-y: auto;
+        }
+        .sidebar h2 { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; color: var(--accent); margin-bottom: 1.5rem; }
+        .sidebar a { display: block; color: var(--text-dim); text-decoration: none; padding: 10px 0; font-size: 0.9rem; transition: 0.3s; }
+        .sidebar a:hover { color: var(--accent); padding-left: 10px; }
+
+        /* Main Content */
+        .content { margin-left: 300px; padding: 4rem 5%; width: 100%; max-width: 1200px; }
+        
+        .section { margin-bottom: 6rem; animation: fadeIn 0.8s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        h1 { font-size: 3rem; color: var(--accent); margin-bottom: 1rem; }
+        h2 { font-size: 2rem; border-bottom: 2px solid var(--border); padding-bottom: 10px; margin-top: 4rem; color: #fff; }
+        h3 { color: var(--accent); margin-top: 2rem; display: flex; align-items: center; gap: 10px; }
+        
+        p { line-height: 1.8; color: var(--text-dim); font-size: 1.05rem; }
+        
+        /* Components */
+        .info-box { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 2rem; margin: 1.5rem 0; }
+        
+        table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; background: rgba(0,0,0,0.2); border-radius: 8px; overflow: hidden; }
+        th, td { padding: 15px; text-align: left; border-bottom: 1px solid var(--border); font-size: 0.9rem; }
+        th { background: rgba(162, 155, 254, 0.1); color: var(--accent); }
+
+        .algo-block { background: var(--code); border-left: 4px solid var(--accent); padding: 1.5rem; font-family: 'JetBrains Mono'; font-size: 0.85rem; color: #bd93f9; overflow-x: auto; }
+        
+        .tag-blue { background: rgba(139, 233, 253, 0.1); color: #8be9fd; padding: 2px 8px; border-radius: 4px; font-size: 0.7rem; }
+
+        .logic-flow { display: flex; flex-direction: column; gap: 10px; margin-top: 1rem; }
+        .logic-step { background: rgba(255,255,255,0.05); padding: 10px 15px; border-radius: 8px; border-left: 3px solid var(--text-dim); }
+    </style>
+</head>
+<body>
+
+    <nav class="sidebar">
+        <h2>NovaTask Engine v3.0</h2>
+        <a href="#intro">0. Introdução</a>
+        <a href="#overview">1. Camada Overview (Global State)</a>
+        <a href="#kanban">2. Camada Kanban (Fluxo Dinâmico)</a>
+        <a href="#analytics">3. Camada Analytics (Data Mining)</a>
+        <a href="#teams">4. Camada Teams (Capacity Plan)</a>
+        <a href="#settings">5. Camada Settings (Theme Engine)</a>
+    </nav>
+
+    <main class="content">
+        <section id="intro" class="section">
+            <h1>Especificação Técnica Completa</h1>
+            <p>O <b>NovaTask OS</b> foi projetado sob a arquitetura de micro-interações reativas. Este documento serve como verdade única para desenvolvedores e stakeholders entenderem a lógica por trás de cada pixel da interface.</p>
+        </section>
+
+        <section id="overview" class="section">
+            <h2>1. Aba Overview: Dashboard Reativo</h2>
+            <p>Esta aba atua como o agregador de estado global (Global State Aggregator). Ela consome dados de todas as outras entidades para gerar uma visão holística.</p>
+
+            <h3>Componentes e Métricas</h3>
+            <table>
+                <tr><th>Métrica</th><th>Fonte de Dados</th><th>Lógica de Cálculo</th></tr>
+                <tr><td>Cycle Time</td><td>API /Tasks/History</td><td>Média de (Finalização - Início) de todas as tasks do Sprint atual.</td></tr>
+                <tr><td>Burnup Rate</td><td>API /Tasks/Velocity</td><td>Soma vetorial de pontos concluídos vs. Dias restantes.</td></tr>
+                <tr><td>Priority Focus</td><td>AI Engine</td><td>Heurística baseada em <i>Weight</i> da Tag + <i>Due Date</i>.</td></tr>
+            </table>
+
+            <h3>Algoritmo de Priorização (Smart Focus)</h3>
+            <div class="algo-block">
+                IF (Task.Status == 'To Do' && Task.DueDate < 24h) { <br>
+                &nbsp;&nbsp;Score = (Task.Complexity * 1.5) + (TimeRemaining.Inverse() * 2); <br>
+                &nbsp;&nbsp;Render.PriorityBanner(Top3_Highest_Scores); <br>
+                }
+            </div>
+        </section>
+
+        <section id="kanban" class="section">
+            <h2>2. Kanban & Board: Persistência de Fluxo</h2>
+            <p>Implementação de um sistema de <i>Drag-and-Drop</i> com persistência assíncrona. A interface reflete o banco de dados em tempo real via WebSockets.</p>
+
+            <div class="info-box">
+                <h3>Arquitetura de Estados</h3>
+                <div class="logic-flow">
+                    <div class="logic-step"><b>Estado 0: Backlog</b> - Task persistida com <code>position_index: NULL</code>.</div>
+                    <div class="logic-step"><b>Estado 1: To Do</b> - Atribuído ID de coluna. Notificação enviada ao Lead.</div>
+                    <div class="logic-step"><b>Estado 2: Doing</b> - Timestamp <code>start_at</code> gravado para cálculos de Analytics.</div>
+                    <div class="logic-step"><b>Estado 3: Done</b> - Timestamp <code>closed_at</code> gravado. Task movida para histórico de cache.</div>
+                </div>
+            </div>
+        </section>
+
+        <section id="analytics" class="section">
+            <h2>3. Analytics: Processamento de Dados Brutos</h2>
+            <p>O motor de Analytics não apenas exibe dados, ele realiza mineração para identificar <b>gargalos (bottlenecks)</b>.</p>
+
+            <h3>Cumulative Flow Diagram (CFD) Logic</h3>
+            <p>O gráfico utiliza dados empilhados. Se a distância vertical entre "Doing" e "Done" aumenta, o sistema dispara um <i>Internal Event</i> para a aba Teams sinalizando sobrecarga.</p>
+
+            <h3>Esquema de Dados (JSON Example)</h3>
+            <div class="algo-block">
+                {
+                    "sprint_id": "QL-2026",
+                    "throughput": 4.5, // tarefas/dia
+                    "efficiency": 0.88, // concluído vs planejado
+                    "predictive_end_date": "2026-03-22T23:59:00Z"
+                }
+            </div>
+        </section>
+
+        <section id="teams" class="section">
+            <h2>4. Teams: Gestão de Recursos e Deep Work</h2>
+            <p>Diferente de CRMs comuns, o NovaTask foca na saúde mental da equipe. A métrica de <b>Capacity Plan</b> impede a atribuição de tarefas acima de 100% da carga horária.</p>
+
+            <div class="info-box">
+                <h3>Monitoramento de Deep Work</h3>
+                <p>Quando o usuário ativa o <i>Deep Work Mode</i>, o front-end executa as seguintes ações:</p>
+                <ul>
+                    <li>Inibe todas as chamadas de API <code>POST /notifications</code> para o ID do usuário.</li>
+                    <li>Altera o CSS do avatar para <code>box-shadow: 0 0 15px var(--accent)</code>.</li>
+                    <li>Adiciona uma trava de UI no Kanban impedindo que outros usuários arrastem tarefas para ele.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="settings" class="section">
+            <h2>5. Settings: Theme Engine & Segurança</h2>
+            <p>A arquitetura de temas utiliza o padrão <b>Atomic CSS Variables</b>.</p>
+
+            <h3>Mapeamento de Temas</h3>
+            <table>
+                <tr><th>Propriedade CSS</th><th>Midnight Mode (Dark)</th><th>Cloud Mode (Light)</th></tr>
+                <tr><td>--bg-main</td><td>#0F0C1D</td><td>#F8F9FA</td></tr>
+                <tr><td>--text-color</td><td>#E0E0FF</td><td>#2D3436</td></tr>
+                <tr><td>--accent-glow</td><td>rgba(162, 155, 254, 0.3)</td><td>rgba(0, 0, 0, 0.05)</td></tr>
+            </table>
+            
+            <h3>Segurança e API</h3>
+            <p>Todas as chaves de integração (Slack, GitHub) são criptografadas via <b>AES-256</b> antes da persistência no banco de dados local da aplicação.</p>
+        </section>
+
+        <footer style="padding: 4rem 0; border-top: 1px solid var(--border); text-align: center; color: var(--text-dim); font-size: 0.8rem;">
+            © 2026 NovaTask OS Engineering Team | Confidential Property
+        </footer>
+    </main>
+
+</body>
+</html>

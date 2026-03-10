@@ -7,16 +7,17 @@
 
 :root {
     --text-color: white;
-    --cor-header: #151528;
-    --cor-body: #0F0F1A;
-    --cor-coluna: #1C1C33;
-    --cor-card: #242447;
+    --cor-header: #131026;
+    --cor-body: #0F0C1D;
+    --cor-coluna: rgba(26, 22, 47, 0.5);
+    --cor-card: #1A162F;
     --cor-titulo: #E4E4F0;
     --cor-texto: #A0A0B8;
     --cor-addCard: #E4E4F0;
     --cor-theme: #E4E4F0;
     --shadow-card-hover: 0 12px 24px rgba(0, 0, 0, 0.6);
     --card-hover: #212132;
+    --border-card : rgba(162, 155, 254, 0.15);
 }
 
 .light {
@@ -45,6 +46,56 @@
     background-color: var(--cor-header);
     padding: 15px;
     border-bottom: 1px solid var(--border-header);
+}
+
+/* Container da Logo na Sidebar */
+.logo-container {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 5px;
+    cursor: pointer;
+}
+
+/* Ícone da Logo (O Círculo/Símbolo) */
+.logo-icon {
+    width: 32px;
+    height: 32px;
+    background: linear-gradient(135deg, #A29BFE 0%, #6C5CE7 100%);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 15px rgba(162, 155, 254, 0.4);
+    font-weight: 900;
+    color: #0F0C1D;
+    font-size: 1.1rem;
+}
+
+/* Texto da Logo (NovaTask OS) */
+.logo-text {
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: 1.25rem;
+    color: #E0E0FF;
+    letter-spacing: -0.5px;
+    display: flex;
+    align-items: center;
+}
+
+/* O sufixo 'OS' com estilo diferenciado */
+.logo-text span {
+    color: #A29BFE;
+    margin-left: 4px;
+    font-weight: 300;
+    opacity: 0.8;
+}
+
+/* Efeito de Hover na Logo */
+.logo-container:hover .logo-icon {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(162, 155, 254, 0.6);
+    transition: all 0.3s ease;
 }
 
 .theme {

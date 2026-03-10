@@ -4,7 +4,6 @@ import { salvarTasks, carregarTasks } from './storage.js';
 let tasks = carregarTasks();
 
 export function create() {
-    let listaAfazer = [];
 
     document.querySelectorAll('.add-card').forEach(btn => {
         btn.addEventListener('click', e => {
@@ -22,14 +21,28 @@ export function create() {
                 if (e.key === 'Enter') {
                     salvar();
                 }
+
+                 if (e.key === 'Escape') {
+                    cancelou = true;
+                    input.remove();
+                }
             })
 
+            input.addEventListener('blur', salvar);
+
+            let salvou = false;
+            let cancelou = false;
+
             function salvar () {
+                if (salvou || cancelou) return;
+
                 const valor = input.value.trim();
                 if (!valor) {
                     input.remove();
                     return;
                 }
+
+                salvou = true;
 
                 const status = coluna.dataset.status;
 
@@ -40,7 +53,6 @@ export function create() {
                 };
 
                 tasks.push(task);
-
                 salvarTasks(tasks);
                 
                 const card = document.createElement('div');
@@ -58,8 +70,6 @@ export function create() {
                 
                 listaCards.replaceChild(card, input);
             }
-
-            input.addEventListener('blur', salvar);
             
         })
         
@@ -68,6 +78,11 @@ export function create() {
 }
 
 export function renderTasks(tasks) {
+    const colunas = document.querySelectorAll('collumn .cards');
+
+    colunas.forEach(coluna => {
+        coluna.innerHTML = '';
+    });
 
     tasks.forEach(task => {
 
