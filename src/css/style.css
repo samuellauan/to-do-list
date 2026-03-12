@@ -18,13 +18,27 @@
     --shadow-card-hover: 0 12px 24px rgba(0, 0, 0, 0.6);
     --card-hover: #212132;
     --border-card : rgba(162, 155, 254, 0.15);
+    --sidebar: #131026;
+    --border: rgba(162, 155, 254, 0.15);
+    --tex-secondary: #94A3B8;
+    --acent-glow: rgba(162, 155, 254, 0.3);
+    --accent: linear-gradient(135deg, #A29BFE 0%, #6C5CE7 100%);
+    --text-primary: #E0E0FF;
+    --logo-grad-1: #A29BFE;
+    --logo-grad-2: #6C5CE7;
+    --switch-bg: url(../images/moon-stars.svg);
+    --surface-color: rgba(255, 255, 255, 0.05);
+    --surface-color-hover: rgba(0, 0, 0, 0.02);
+    --stroke-color: rgba(255, 255, 255, 0.5);
+    --highlight-color: rgba(255, 255, 255, 0.20);
+    --highlight-color-hover: rgba(255, 255, 255, 0.20);
 }
 
 .light {
     --text-color: black;
-    --cor-header: rgba(255, 255, 255, 0.8);
+    --cor-header: rgba(255, 255, 255, 0.9);
     --cor-body: #F8FAFC;
-    --cor-coluna: #FFFFFF;
+    --cor-coluna: #F1F5F9;
     --cor-card: #FAF9FF;
     --cor-titulo: #1A1A1A;
     --cor-texto: #242424;
@@ -36,16 +50,73 @@
     --shadow-card: 0 2px 8px rgba(15, 23, 42, 0.06);
     --shadow-card-hover: 0 12px 24px rgba(15, 23, 42, 0.10);
     --card-hover: #E2E8F0;
+    --sidebar: #FFFFFF;
+    --border: #E2E8F0;
+    --tex-secondary: #64748B;
+    --acent-glow: rgba(108, 92, 231, 0.1); 
+    --accent: linear-gradient(135deg, #A29BFE 0%, #6C5CE7 100%);
+    --text-primary: #0F172A;
+    --logo-grad-1: #6C5CE7;
+    --logo-grad-2: #3F32AF;
+    --switch-bg: url(../images/sun.svg);
+    --surface-color: rgba(0, 0, 0, 0.05);
+    --surface-color-hover: rgba(0, 0, 0, 0.02);
+    --stroke-color: rgba(0, 0, 0, 0.5);
+    --highlight-color: rgba(0, 0, 0, 0.10);
+    --highlight-color-hover: rgba(0, 0, 0, 0.10);
 }
 
- header {
+body {
+    background-color: var(--cor-body);
+    color: var(--text-primary);
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    color: var(--cor-titulo);
-    background-color: var(--cor-header);
-    padding: 15px;
-    border-bottom: 1px solid var(--border-header);
+    height: 100vh;
+    overflow: hidden;
+    transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+main {
+    flex: 1;
+    overflow-y: auto;
+    padding: 3rem;
+    scroll-behavior: smooth;
+}
+
+nav {
+    width: 260px;
+    background-color: var(--sidebar);
+    border-right: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    padding: 2rem 1rem;
+    color: var(--text-primary);
+    backdrop-filter: blur(10px);
+     -webkit-backdrop-filter: blur(10px);/* CONSERTAR WEBKIT */
+    transition: background-color 0.5s ease, color 0.5s ease;
+    }
+
+.tab-btn {
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    padding: 12px 1rem;
+    text-align: left;
+    font-size: 0.95rem;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: all 0.3s;
+    margin-bottom: 5px;
+}
+
+.tab-btn:hover {
+    background: var(--accent-glow);
+    color: var(--accent);
+}
+
+.tab-btn.active {
+    background: var(--accent);
+    color: var(--cor-body);
+    font-weight: 600;
 }
 
 /* Container da Logo na Sidebar */
@@ -77,7 +148,7 @@
     font-family: 'Inter', sans-serif;
     font-weight: 700;
     font-size: 1.25rem;
-    color: #E0E0FF;
+    color: var(--text-primary);
     letter-spacing: -0.5px;
     display: flex;
     align-items: center;
@@ -85,10 +156,15 @@
 
 /* O sufixo 'OS' com estilo diferenciado */
 .logo-text span {
-    color: #A29BFE;
+    background: linear-gradient(135deg, var(--logo-grad-1), var(--logo-grad-2));
     margin-left: 4px;
     font-weight: 300;
     opacity: 0.8;
+    font-weight: 600;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
 }
 
 /* Efeito de Hover na Logo */
@@ -98,21 +174,46 @@
     transition: all 0.3s ease;
 }
 
-.theme {
-    color: var(--cor-theme);
-    font-size: 4vh;
-    padding: 8px 8px;
-    cursor: pointer;
-    border: none;
-    background: none;
+/* Botão para trocar cor */
+#switch{
+  position: relative;
+  width: 64px;
+  margin: 16px auto;
 }
 
-.theme:hover {
-   color: #430a60;
+#switch button {
+  width: 32px;
+  height: 32px;
+  background: white var(--switch-bg) no-repeat center;
+  border: 0;
+  border-radius: 50%;
+
+  position: absolute;
+  top: 50%;
+  left: 0;
+  z-index: 1;
+  transform: translateY(-50%);
+
+  animation: slide-out 0.2s forwards;
 }
 
-body {
-    background-color: var(--cor-body);
+#switch button:hover {
+  outline: 8px solid var(--highlight-color-hover);
+}
+
+.light #switch button {
+  animation: slide-in 0.2s forwards; 
+}
+
+#switch span {
+  display: block;
+  width: 64px;
+  height: 24px;
+  background: var(--surface-color);
+  border: 1px solid var(--stroke-color);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border-radius: 9999px;
 }
 
 .container {
@@ -130,7 +231,7 @@ body {
 .tittle{
     display: flex;
     justify-content: space-between;
-    padding: 0 8px;
+    padding: 8px 8px;
 }
 
 .add-card {
@@ -245,4 +346,20 @@ body {
     .column h1 {
         font-size: 1.5rem;
     }
+
+    nav {
+        display: none;
+    }
+}
+
+/* Animação para o Modo Dark (Botão volta para a esquerda) */
+@keyframes slide-out {
+  from { left: 50%; }
+  to { left: 0; }
+}
+
+/* Animação para o Modo Light (Botão vai para a direita) */
+@keyframes slide-in {
+  from { left: 0; }
+  to { left: 50%; }
 }
