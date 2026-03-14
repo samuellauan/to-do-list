@@ -1,4 +1,4 @@
-* {
+    * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -125,7 +125,6 @@ nav {
     align-items: center;
     gap: 12px;
     padding: 10px 5px;
-    cursor: pointer;
 }
 
 /* Ícone da Logo (O Círculo/Símbolo) */
@@ -195,6 +194,7 @@ nav {
   transform: translateY(-50%);
 
   animation: slide-out 0.2s forwards;
+  cursor: pointer;
 }
 
 #switch button:hover {
@@ -216,16 +216,23 @@ nav {
   border-radius: 9999px;
 }
 
-.container {
+#view-board {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
     width: 100%;
-    min-height: 600px;
+    min-height: 400px;
     gap: 2%;
     margin: 15px auto 0;
     overflow-x: auto;
+}
+
+.titulo-kanban {
+    display: flex; 
+    flex-direction: column;
+    justify-content: start;
+    margin-bottom: 1rem;
 }
 
 .tittle{
@@ -308,7 +315,8 @@ nav {
 }
 
 .dragging {
-    opacity: 0;
+    opacity: 0.5;
+    cursor: grabbing;
 }
 
 .cards-hover {

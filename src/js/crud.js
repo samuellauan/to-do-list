@@ -47,7 +47,7 @@ export function create() {
                 const status = coluna.dataset.status;
 
                 const task = {
-                    id: Date.now(),
+                    id: `task-${Date.now()}`, // String facilita a seleção no DOM
                     titulo: valor,
                     status: status
                 };
@@ -57,6 +57,7 @@ export function create() {
                 
                 const card = document.createElement('div');
                 card.classList.add('card');
+                card.id = task.id;
                 card.textContent = valor ;
                 card.draggable = true;
 
@@ -78,37 +79,30 @@ export function create() {
 }
 
 export function renderTasks(tasks) {
-    const colunas = document.querySelectorAll('collumn .cards');
+    const colunas = document.querySelectorAll('.column .cards');
 
     colunas.forEach(coluna => {
         coluna.innerHTML = '';
     });
 
+    // Pega a ordem salva pelo Drag and Drop
+    const savedOrder = JSON.parse(localStorage.getItem('novaTaskCards')) || {};
+
     tasks.forEach(task => {
-
-        const coluna = document.querySelector(
-            `.column[data-status="${task.status}"]`
-        );
-
-        const listaCards = coluna.querySelector('.cards');
-
         const card = document.createElement('div');
         card.classList.add('card');
+        card.id = String(task.id);
         card.textContent = task.titulo;
         card.draggable = true;
-
+        
+        card.id = task.id; 
         card.dataset.id = task.id;
 
-        card.addEventListener('dragstart', e => {
-            e.currentTarget.classList.add('dragging');
-        });
+        card.addEventListener('dragstart', e => e.currentTarget.classList.add('dragging'));
+        card.addEventListener('dragend', e => e.currentTarget.classList.remove('dragging'));
 
-        card.addEventListener('dragend', e => {
-            e.currentTarget.classList.remove('dragging');
-        });
-
-        listaCards.appendChild(card);
-
+        const coluna = document.querySelector(`.column[data-status="${task.status}"] .cards`);
+        if (coluna) coluna.appendChild(card);
     });
 
 }

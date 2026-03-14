@@ -6,9 +6,14 @@
     <link rel="stylesheet" href="./src/css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
     <title>NovaTask OS </title>
+    <script>
+        if (localStorage.getItem('theme') === 'light') {
+            document.documentElement.classList.add('light');
+        }
+    </script>
 </head>
 <body>
     <nav>
@@ -20,60 +25,67 @@
             <button></button>
             <span></span>
         </div>
-                <button class="tab-btn active" onclick="showTab('overview')">Overview</button>
-        <button class="tab-btn" onclick="showTab('kanban')">Kanban & List</button>
+        <button class="tab-btn active" onclick="showTab('overview')">Kanban & List</button>
+        <!-- <button class="tab-btn" onclick="showTab('kanban')">Overview</button> 
         <button class="tab-btn" onclick="showTab('analytics')">Analytics</button>
         <button class="tab-btn" onclick="showTab('teams')">Teams</button>
-        <button class="tab-btn" onclick="showTab('settings')">Settings</button>
+        <button class="tab-btn" onclick="showTab('settings')">Settings</button>-->
     </nav>
     <main>
-            <div class="container">
-                <div class="column" data-status="afazer"> 
-                    <div class="tittle">
-                        <h3>
-                            A Fazer
-                        </h3>
-
-                        <button class="add-card">
-                            <i class="fa-solid fa-plus"></i>
-                        </button>
-                    </div>
-
-                    <div class="cards">
-                    </div>
+            <section id="kanban" class="content-section">
+                <div class="titulo-kanban">
+                    <h1>Board & Tasks</h1>
+                    <p style="margin-bottom: 0;">Gerencie o fluxo de trabalho entre visões de quadro e lista detalhada.</p>
                 </div>
+                <div id="view-board">
+                        <div class="column" id="afazer" data-status="afazer"> 
+                            <div class="tittle">
+                                <h3>
+                                    A Fazer
+                                </h3>
 
-                <div class="column" data-status="fazendo"> 
-                    <div class="tittle">
-                        <h3>
-                            Em Andamento
-                        </h3>
+                                <button class="add-card">
+                                    <i class="fa-solid fa-plus"></i>
+                                </button>
+                            </div>
 
-                        <button class="add-card">
-                            <i class="fa-solid fa-plus"></i>
-                        </button>
+                            <div class="cards">
+                            </div>
+                        </div>
+
+                        <div class="column" id="fazendo" data-status="fazendo"> 
+                            <div class="tittle">
+                                <h3>
+                                    Em Andamento
+                                </h3>
+
+                                <button class="add-card">
+                                    <i class="fa-solid fa-plus"></i>
+                                </button>
+                            </div>
+
+                            <div class="cards">
+                                
+                            </div>
+                        </div>
+
+                        <div class="column" id="feito" data-status="feito">
+                            <div class="tittle">
+                                <h3>
+                                    Concluído
+                                </h3>
+
+                                <button class="add-card">
+                                    <i class="fa-solid fa-plus"></i>
+                                </button>
+                            </div>
+
+                            <div class="cards">
+                            </div>
+                        </div>
                     </div>
-
-                    <div class="cards">
-                        
-                    </div>
-                </div>
-
-                <div class="column" data-status="feito">
-                    <div class="tittle">
-                        <h3>
-                            Concluído
-                        </h3>
-
-                        <button class="add-card">
-                            <i class="fa-solid fa-plus"></i>
-                        </button>
-                    </div>
-
-                    <div class="cards">
-                    </div>
-                </div>
-            </div>
+                </div>    
+            </section>
     </main>
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
