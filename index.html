@@ -16,6 +16,12 @@
     </script>
 </head>
 <body>
+    <header>
+        <div class="logo-container">
+            <div class="logo-icon">N</div>
+            <div class="logo-text">NovaTask <span>OS</span></div>
+        </div>
+    </header>
     <nav>
         <div class="logo-container">
             <div class="logo-icon">N</div>
@@ -37,8 +43,13 @@
                     <h1>Board & Tasks</h1>
                     <p style="margin-bottom: 0;">Gerencie o fluxo de trabalho entre visões de quadro e lista detalhada.</p>
                 </div>
+                <div class="status-tabs-mobile">
+                    <button class="status-tab active" data-target="afazer">A FAZER</button>
+                    <button class="status-tab" data-target="fazendo">FAZENDO</button>
+                    <button class="status-tab" data-target="feito">CONCLUÍDO</button>
+                </div>
                 <div id="view-board">
-                        <div class="column" id="afazer" data-status="afazer"> 
+                        <div class="column column active-mobile" id="afazer" data-status="afazer"> 
                             <div class="tittle">
                                 <h3>
                                     A Fazer

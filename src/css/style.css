@@ -340,23 +340,106 @@ nav {
 
 /* responsividade */
 @media (max-width: 768px) {
-    .container {
-        overflow-x: scroll;
-        justify-content: flex-start;
-        margin: auto;
+    main {
+            padding: 1rem;
+            overflow-x: hidden;
+    }
+
+    #view-board {
+        justify-content: flex-start; 
+        align-items: flex-start;
+        gap: 16px;
+        padding: 10px;
+        overflow-x: auto; 
+        -webkit-overflow-scrolling: touch; 
+        display: flex;
     }
 
     .column {
-        min-width: 300px;
-    
+        min-width: 85vw;
+        width: 85vw;
+        height: 75vh;
+        flex-shrink: 0
     }
 
     .column h1 {
         font-size: 1.5rem;
     }
 
+    .titulo-kanban {
+        font-size: 1rem;
+    }
+
+    body {
+        flex-direction: column;
+    }
+
     nav {
         display: none;
+    }
+
+    header {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 10px 8px;
+    }
+
+    .status-tabs-mobile {
+        display: flex;
+        justify-content: space-around;
+        border-bottom: 1px solid var(--border);
+        margin-bottom: 20px;
+    }
+
+    .status-tab {
+        background: none;
+        border: none;
+        color: var(--tex-secondary);
+        padding: 10px;
+        font-weight: 600;
+        font-size: 0.8rem;
+        position: relative;
+    }
+
+    .status-tab.active {
+        color: #A29BFE;
+    }
+
+    .status-tab.active::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 3px;
+        background: #6C5CE7;
+        box-shadow: 0 0 10px #A29BFE;
+        border-radius: 10px 10px 0 0;
+    }
+
+    .column {
+        display: none;
+        width: 100%;
+    }
+
+    .column.active-mobile {
+        display: flex;
+    }
+
+    #view-board {
+        display: block; 
+        width: 100%;
+    }
+}
+
+@media (min-width: 768px) {
+    header {
+        display: none;
+    }
+
+    .status-tabs-mobile {
+    display: none; 
     }
 }
 
