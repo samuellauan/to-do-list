@@ -94,6 +94,50 @@
                             <div class="cards">
                             </div>
                         </div>
+
+                       <div class="modal-overlay" id="task-modal">
+                            <div class="modal-content">
+                                <button class="close-modal">&times;</button>
+                                
+                                <div class="modal-header">
+                                    <h2 id="modal-title" contenteditable="true">Título da Task</h2>
+                                </div>
+                                
+                                <div class="modal-body">
+                                    <div class="meta-row">
+                                        <div class="meta-item">
+                                            <div class="meta-item">
+                                                <span class="label">Prioridade</span>
+                                                <select id="modal-priority">
+                                                    <option value="low">Baixa</option>
+                                                    <option value="medium">Média</option>
+                                                    <option value="high">Alta</option>
+                                                </select>
+                                            </div>
+                                            
+                                        </div>
+                                        <div class="meta-item">
+                                            <span class="label">Prazo</span>
+                                            <input type="date" id="modal-due-date">
+                                        </div>
+                                        <div class="meta-item">
+                                            <span class="label">Status Atual</span>
+                                            <span id="modal-status-text">A FAZER</span>
+                                        </div>
+                                    </div>
+                                    <div class="description-area">
+                                        <span class="label">Descrição Detalhada</span>
+                                        <textarea id="modal-desc" placeholder="O que precisa ser feito nessa tarefa?"></textarea>
+                                    </div>
+                                </div>
+                                
+                                <div class="modal-footer">
+                                    <button class="btn-delete">Excluir</button>
+                                    <button class="btn-complete">Concluir</button>
+                                    <button class="btn-save">Salvar</button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>    
             </section>
