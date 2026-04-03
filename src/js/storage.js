@@ -2,14 +2,9 @@ let tasks = [];
 
 export function carregarTasks() {
     const data = localStorage.getItem('tasks');
-
-    if (data) {
-        tasks = JSON.parse(data);
-    }
-
-    return tasks;
+    return data ? JSON.parse(data) : []; // Sempre retorna um array, evita erro de undefined
 }
 
-export function salvarTasks(tasks) {
-    localStorage.setItem('tasks', JSON.stringify(tasks));
+export function salvarTasks(tasksParaSalvar) {
+    localStorage.setItem('tasks', JSON.stringify(tasksParaSalvar));
 }

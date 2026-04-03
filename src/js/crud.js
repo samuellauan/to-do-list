@@ -24,7 +24,7 @@ function setupModal(task) {
     dateInput.value = task.prazo || '';
     statusText.textContent = task.status.toUpperCase();
 
-    prioritySelect.value = task.prioridade || 'medium';
+    prioritySelect.value = task.prioridade || 'low';
 
     modal.classList.add('active');
 
@@ -67,7 +67,7 @@ function createCardDOM(task) {
     const card = document.createElement('div');
     card.classList.add('card');
     // ADICIONA A CLASSE DE PRIORIDADE AQUI
-    card.classList.add(`priority-${task.prioridade || 'medium'}`);
+    card.classList.add(`priority-${task.prioridade || 'low'}`);
     
     card.id = String(task.id);
     card.draggable = true;
@@ -87,6 +87,14 @@ export function create() {
         btn.onclick = (e) => {
             const coluna = e.target.closest('.column');
             const listaCards = coluna.querySelector('.cards');
+            
+            // SEGURANÇA: Verifica se a coluna tem um ID
+            const statusColuna = coluna.id; 
+            if (!statusColuna) {
+                console.error("ERRO: A coluna clicada não possui um ID no HTML!");
+                return;
+            }
+
             if (listaCards.querySelector('.input-card')) return;
 
             const input = document.createElement('input');
@@ -95,16 +103,24 @@ export function create() {
             listaCards.appendChild(input);
             input.focus();
 
+            let jaSalvou = false; 
+
             const salvar = () => {
+                if (jaSalvou) return;
+
                 const valor = input.value.trim();
                 if (valor) {
+                    jaSalvou = true;
                     const newTask = {
                         id: `task-${Date.now()}`,
                         titulo: valor,
-                        status: coluna.id,
+                        status: statusColuna, // Agora garantimos o ID da coluna
                         prazo: '',
-                        descricao: ''
+                        descricao: '',
+                        prioridade: 'low',
+                        ordem: listaCards.querySelectorAll('.card').length
                     };
+                    
                     tasks.push(newTask);
                     salvarTasks(tasks);
                     renderTasks(tasks);
@@ -113,7 +129,11 @@ export function create() {
                 }
             };
 
-            input.onkeydown = (e) => { if (e.key === 'Enter') salvar(); };
+            input.onkeydown = (e) => { 
+                if (e.key === 'Enter') { e.preventDefault(); salvar(); }
+                if (e.key === 'Escape') { jaSalvou = true; input.remove(); }
+            };
+
             input.onblur = salvar;
         };
     });
@@ -121,12 +141,18 @@ export function create() {
 
 export function renderTasks(lista) {
     if (lista) tasks = lista;
-    const colunas = document.querySelectorAll('.column .cards');
-    colunas.forEach(c => c.innerHTML = '');
+
+    // Ordena as tasks pelo índice de 'ordem' antes de renderizar
+    tasks.sort((a, b) => (a.ordem || 0) - (b.ordem || 0));
+
+    const colunasContainers = document.querySelectorAll('.column .cards');
+    colunasContainers.forEach(c => c.innerHTML = '');
 
     tasks.forEach(task => {
         const cardElement = createCardDOM(task);
         const container = document.querySelector(`#${task.status} .cards`);
-        if (container) container.appendChild(cardElement);
+        if (container) {
+            container.appendChild(cardElement);
+        }
     });
 }

@@ -1,6 +1,6 @@
 import { create, renderTasks } from './crud.js';
 import { carregarTasks } from './storage.js';
-import { initDragAndDrop, loadKanbanState } from './dragdrop.js';
+import { initDragAndDrop } from './dragdrop.js'; // REMOVIDO: loadKanbanState
 import { toggleMode } from "./theme.js";
 
 function initStatusTabs() {
@@ -9,36 +9,32 @@ function initStatusTabs() {
 
     tabs.forEach(tab => {
         tab.addEventListener('click', () => {
-            const targetId = tab.dataset.target; // Ex: "afazer"
-            
-            // 1. Remove classes ativas de todos
+            const targetId = tab.dataset.target;
             tabs.forEach(t => t.classList.remove('active'));
             columns.forEach(c => c.classList.remove('active-mobile'));
 
-            // 2. Adiciona no elemento clicado
             tab.classList.add('active');
             const targetColumn = document.getElementById(targetId);
             
             if (targetColumn) {
                 targetColumn.classList.add('active-mobile');
-                console.log("Mostrando coluna:", targetId);
-            } else {
-                console.warn("Coluna não encontrada para o ID:", targetId);
             }
         });
     });
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    toggleMode(); // Inicializa o tema salvo
+    toggleMode(); 
     
-    const tasks = carregarTasks(); // 1. Busca os objetos
-    renderTasks(tasks);            // 2. Cria os cards no DOM
-    setTimeout(() => {
-        loadKanbanState();
-        initDragAndDrop(); // Ativa os eventos por último
-    }, 50);
+    // 1. Carrega os dados brutos do LocalStorage
+    const tasks = carregarTasks(); 
+    
+    // 2. O renderTasks cria os elementos no DOM nas colunas certas (pelo ID)
+    renderTasks(tasks); 
+    
+    // 3. AGORA que os cards existem no HTML, ativamos o Drag and Drop neles
+    initDragAndDrop(); 
     
     create();
-    initStatusTabs()
+    initStatusTabs();
 });
