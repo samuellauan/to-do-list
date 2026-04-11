@@ -40,16 +40,28 @@
     <main>
             <section id="kanban" class="content-section">
                 <div class="titulo-kanban">
-                    <h1>Board & Tasks</h1>
-                    <p style="margin-bottom: 0;">Gerencie o fluxo de trabalho entre visões de quadro e lista detalhada.</p>
+                    <div>
+                        <h1>Board & Tasks</h1>
+                        <p style="margin-bottom: 0;">Gerencie o fluxo de trabalho entre visões de quadro e lista detalhada.</p>
+                    </div>
+                    <div class="view-toggle">
+                        <button id="btn-board" class="active">
+                            Board
+                        </button>
+
+                        <button id="btn-list">
+                            List
+                        </button>
+                    </div>
                 </div>
+                
                 <div class="status-tabs-mobile">
                     <button class="status-tab active" data-target="afazer">A FAZER</button>
                     <button class="status-tab" data-target="fazendo">FAZENDO</button>
                     <button class="status-tab" data-target="feito">CONCLUÍDO</button>
                 </div>
                 <div id="view-board">
-                        <div class="column column active-mobile" id="afazer" data-status="afazer"> 
+                    <div class="column column active-mobile" id="afazer" data-status="afazer"> 
                             <div class="tittle">
                                 <h3>
                                     A Fazer
@@ -62,9 +74,9 @@
 
                             <div class="cards">
                             </div>
-                        </div>
+                    </div>
 
-                        <div class="column" id="fazendo" data-status="fazendo"> 
+                    <div class="column" id="fazendo" data-status="fazendo"> 
                             <div class="tittle">
                                 <h3>
                                     Em Andamento
@@ -78,24 +90,36 @@
                             <div class="cards">
                                 
                             </div>
+                    </div>
+
+                    <div class="column" id="feito" data-status="feito">
+                         <div class="tittle">
+                            <h3>
+                                Concluído
+                            </h3>
+
+                            <button class="add-card">
+                                <i class="fa-solid fa-plus"></i>
+                            </button>
                         </div>
 
-                        <div class="column" id="feito" data-status="feito">
-                            <div class="tittle">
-                                <h3>
-                                    Concluído
-                                </h3>
-
-                                <button class="add-card">
-                                    <i class="fa-solid fa-plus"></i>
-                                </button>
-                            </div>
-
-                            <div class="cards">
-                            </div>
+                        <div class="cards">
                         </div>
                     </div>
                 </div>
+                <div id="view-list" class="hidden">
+                    <div class="list-container">
+                        <div class="list-header">
+                            <span>Tarefa</span>
+                            <span>Status</span>
+                            <span>Prioridade</span>
+                            <span>Prazo</span>
+                        </div>
+
+                        <div id="list-body"></div>
+                    </div>
+                </div>
+                
                 <div class="modal-overlay" id="task-modal">
                             <div class="modal-content">
                                 <button class="close-modal">&times;</button>

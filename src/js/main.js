@@ -1,7 +1,9 @@
-import { create, renderTasks } from './crud.js';
+import { create, renderTasks, setupModal } from './crud.js';
 import { carregarTasks } from './storage.js';
 import { initDragAndDrop } from './dragdrop.js'; // REMOVIDO: loadKanbanState
-import { toggleMode } from "./theme.js";
+import { toggleMode, toggleView } from "./theme.js";
+
+let tasks = [];
 
 function initStatusTabs() {
     const tabs = document.querySelectorAll('.status-tab');
@@ -25,16 +27,19 @@ function initStatusTabs() {
 
 document.addEventListener('DOMContentLoaded', () => {
     toggleMode(); 
+
+    tasks = carregarTasks(); 
     
-    // 1. Carrega os dados brutos do LocalStorage
-    const tasks = carregarTasks(); 
-    
-    // 2. O renderTasks cria os elementos no DOM nas colunas certas (pelo ID)
     renderTasks(tasks); 
     
-    // 3. AGORA que os cards existem no HTML, ativamos o Drag and Drop neles
     initDragAndDrop(); 
     
     create();
     initStatusTabs();
+
+    const btnBoard = document.getElementById('btn-board');
+    const btnList = document.getElementById('btn-list');
+
+    btnList.onclick = () => toggleView('list', tasks, setupModal);
+    btnBoard.onclick = () => toggleView('board', tasks, setupModal);
 });

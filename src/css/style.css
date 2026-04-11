@@ -216,6 +216,33 @@ nav {
   border-radius: 9999px;
 }
 
+.view-toggle {
+    background: var(--bg-card);
+    padding: 5px;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    display: flex;
+    gap: 5px;
+    height: 50px;
+}
+
+.view-toggle button {
+    border: none;
+    padding: 8px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.85rem;
+    background: transparent;
+    color: var(--text-secondary);
+    transition: 0.2s;
+}
+
+.view-toggle button.active {
+    background: var(--accent);
+    color: var(--bg-deep);
+}
+
 #view-board {
     display: flex;
     flex-direction: row;
@@ -228,10 +255,106 @@ nav {
     overflow-x: auto;
 }
 
+/* ativa modo lista */
+#view-board.list-view {
+    display: block;
+}
+
+/* esconde botão de add */
+#view-board.list-view .add-card {
+    display: none;
+}
+
+/* coluna vira bloco */
+#view-board.list-view .column {
+    margin-bottom: 20px;
+}
+
+/* cards viram tabela */
+#view-board.list-view .cards {
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+/* cabeçalho fake */
+#view-board.list-view .cards::before {
+    content: "Tarefa    Status    Prioridade    Prazo";
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    padding: 12px;
+    font-size: 0.75rem;
+    color: var(--tex-secondary);
+    background: rgba(0,0,0,0.2);
+}
+
+/* card vira linha */
+#view-board.list-view .card {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    padding: 12px;
+    margin: 0;
+    border-radius: 0;
+    border-bottom: 1px solid var(--border);
+    align-items: center;
+}
+
+/* remove estilo antigo */
+#view-board.list-view .card:hover {
+    transform: none;
+}
+
+/* título vira primeira coluna */
+#view-board.list-view .card-title {
+    font-weight: 500;
+}
+
+/* mostra dados extras */
+#view-board.list-view .card-list {
+    display: contents;
+}
+
+/* esconde no modo board */
+.hidden {
+    display: none;
+}
+
+#view-list {
+    margin-top: 20px;
+}
+
+.list-container {
+    width: 100%;
+    background: var(--cor-coluna);
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    overflow: hidden;
+}
+
+.list-header {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    padding: 15px;
+    font-size: 0.85rem;
+    color: var(--tex-secondary);
+    background: rgba(0,0,0,0.2);
+}
+
+.list-row {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    padding: 15px;
+    border-top: 1px solid var(--border);
+    align-items: center;
+}
+
+.list-row:hover {
+    background: rgba(255,255,255,0.02);
+}
+
 .titulo-kanban {
     display: flex; 
-    flex-direction: column;
-    justify-content: start;
+    justify-content: space-between;
     margin-bottom: 1rem;
 }
 
